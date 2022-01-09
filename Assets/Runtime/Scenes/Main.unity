@@ -123,63 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &426581093
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8673886773842922245, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_Name
-      value: Track_Base
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9162075309604561715, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +361,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadGameDelay: 3
+--- !u!1 &1576013654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1576013656}
+  - component: {fileID: 1576013655}
+  m_Layer: 0
+  m_Name: TrackGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1576013655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576013654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c54c9f3b504df43bf0d827703c2df9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1634458766}
+  segmentsPrefabs:
+  - {fileID: 2357923559559866852, guid: f44151fffdedfdd4ea44f472582e74cc, type: 3}
+  - {fileID: 7561899649604376648, guid: 26a14b15afc07b5429cfb7dfc70db4c9, type: 3}
+  firstTrackPrefab: {fileID: 16784829302841418, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
+  initialTrackCount: 10
+  minTracksInFrontOfPlayer: 3
+  currentSegments: []
+--- !u!4 &1576013656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576013654}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1634458766 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2437641243604713439, guid: a553c673e477dcb48bb32fd2ef070f51, type: 3}
