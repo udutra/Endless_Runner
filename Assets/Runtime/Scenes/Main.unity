@@ -391,13 +391,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1634458766}
-  segmentsPrefabs:
-  - {fileID: 2357923559559866852, guid: f44151fffdedfdd4ea44f472582e74cc, type: 3}
-  - {fileID: 7561899649604376648, guid: 26a14b15afc07b5429cfb7dfc70db4c9, type: 3}
   firstTrackPrefab: {fileID: 16784829302841418, guid: 9d6a6e6561c480140af335e57cca6bb2, type: 3}
-  initialTrackCount: 10
+  easyTrackPrefabs:
+  - {fileID: 2357923559559866852, guid: f44151fffdedfdd4ea44f472582e74cc, type: 3}
+  hardTrackPrefabs:
+  - {fileID: 7561899649604376648, guid: 26a14b15afc07b5429cfb7dfc70db4c9, type: 3}
+  rewardTrackPrefabs:
+  - {fileID: 4906523677545826503, guid: 57c44243ba4b1054b96b97165cd2afef, type: 3}
+  initialTrackCount: 5
   minTracksInFrontOfPlayer: 3
-  currentSegments: []
+  minDistanceToConsiderInsideTrack: 3
+  hardTrackChance: 0.2
+  minTracksBeforeReward: 10
+  maxTracksBeforeReward: 20
+  minRewardTrackCount: 1
+  maxRewardTrackCount: 2
 --- !u!4 &1576013656
 Transform:
   m_ObjectHideFlags: 0
