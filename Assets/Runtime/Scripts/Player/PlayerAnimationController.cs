@@ -1,21 +1,27 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
-public class PlayerAnimationController : MonoBehaviour {
-
-    private PlayerController player;
+public class PlayerAnimationController : MonoBehaviour
+{
     [SerializeField] private Animator animator;
 
-    private void Awake() {
+    private PlayerController player;
+
+    private void Awake()
+    {
         player = GetComponent<PlayerController>();
     }
 
-    private void Update() {
+    private void Update()
+    {
         animator.SetBool(PlayerAnimationConstants.IsJumping, player.IsJumping);
         animator.SetBool(PlayerAnimationConstants.IsRolling, player.IsRolling);
     }
 
-    public void Die() {
-        animator.SetTrigger(PlayerAnimationConstants.Die);
+    public void Die()
+    {
+        animator.SetTrigger(PlayerAnimationConstants.DieTrigger);
     }
 }

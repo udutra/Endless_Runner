@@ -1,131 +1,164 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
+    [SerializeField] private float horizontalSpeed = 15;
+    [SerializeField] private float forwardSpeed = 10;
 
-    [Header("Movement")]
-    [SerializeField] private float horizontalSpeed = 5f;
-    [SerializeField] private float forwardSpeed = 10f;
-    [SerializeField] private float laneDistanceX = 1.3f;
-    private Vector3 initiallPosition;
-    
-    private float LeftLaneX => initiallPosition.x - laneDistanceX;
-    private float RightLaneX => initiallPosition.x + laneDistanceX;
-    private float targetPositionX;
-
+    [SerializeField] private float laneDistanceX = 4;
 
     [Header("Jump")]
-    private float jumpStartZ;
-    
     [SerializeField] private float jumpDistanceZ = 5;
     [SerializeField] private float jumpHeightY = 2;
-    [SerializeField] private float jumpLerpSpeed = 10;
-    private bool CanJump => !IsJumping;
 
-    public float JumpDuration => jumpDistanceZ / forwardSpeed;
+    [SerializeField] private float jumpLerpSpeed = 10;
+
+    [Header("Roll")]
+
+    [SerializeField] private float rollDistanceZ = 5;
+    [SerializeField] private Collider regularCollider;
+    [SerializeField] private Collider rollCollider;
+
+
+    Vector3 initialPosition;
+
+    float targetPositionX;
+
     public bool IsJumping { get; private set; }
 
-    [Header("Rool")]
     private float rollStartZ;
-    private bool CanRoll => !IsRolling;
-    [SerializeField] private float rollDistanceZ = 5;
-    [SerializeField] private Collider regularCollider, rollCollider;
-    public float RollDutarion => rollDistanceZ / forwardSpeed;
     public bool IsRolling { get; private set; }
-    
-    private void Awake() {
-        initiallPosition = transform.position;
+
+    public float JumpDuration => jumpDistanceZ / forwardSpeed;
+
+    public float RollDuration => rollDistanceZ / forwardSpeed;
+    float jumpStartZ;
+
+    private float LeftLaneX => initialPosition.x - laneDistanceX;
+    private float RightLaneX => initialPosition.x + laneDistanceX;
+
+    private bool CanJump => !IsJumping;
+    private bool CanRoll => !IsRolling;
+
+    public float TravelledDistance => Vector3.Distance(transform.position, initialPosition);
+
+    void Awake()
+    {
+        initialPosition = transform.position;
         StopRoll();
     }
 
-    private void Update() {
+    void Update()
+    {
         ProcessInput();
 
         Vector3 position = transform.position;
 
-        position.x = ProcessLaneMovementt();
+        position.x = ProcessLaneMovement();
         position.y = ProcessJump();
-        position.z = ProcessFowardMovementt();
+        position.z = ProcessForwardMovement();
         ProcessRoll();
 
         transform.position = position;
     }
 
-    private void ProcessInput() {
-        if (Input.GetKeyDown(KeyCode.D)) {
+    private void ProcessInput()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
             targetPositionX += laneDistanceX;
         }
-        if (Input.GetKeyDown(KeyCode.A)) {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
             targetPositionX -= laneDistanceX;
         }
-        if (Input.GetKeyDown(KeyCode.W) && CanJump) {
+        if (Input.GetKeyDown(KeyCode.W) && CanJump)
+        {
             StartJump();
         }
-
-        if (Input.GetKeyDown(KeyCode.S) && CanRoll) {
+        if (Input.GetKeyDown(KeyCode.S) && CanRoll)
+        {
             StartRoll();
         }
+
         targetPositionX = Mathf.Clamp(targetPositionX, LeftLaneX, RightLaneX);
     }
 
-    private float ProcessLaneMovementt() {
+    private float ProcessLaneMovement()
+    {
         return Mathf.Lerp(transform.position.x, targetPositionX, Time.deltaTime * horizontalSpeed);
     }
 
-    private float ProcessFowardMovementt() {
+    private float ProcessForwardMovement()
+    {
         return transform.position.z + forwardSpeed * Time.deltaTime;
     }
 
-    private void StartJump() {
+    private void StartJump()
+    {
         IsJumping = true;
         jumpStartZ = transform.position.z;
         StopRoll();
     }
 
-    private float ProcessJump() {
-        float deltaY = 0;
-        if (IsJumping) {
-            float jumpCurrentProgress = transform.position.z - jumpStartZ;
-            float jumpPercent = jumpCurrentProgress / jumpDistanceZ;
-            if (jumpPercent >= 1) {
-                StopJump();
-            }
-            else {
-                deltaY = Mathf.Sin(Mathf.PI * jumpPercent) * jumpHeightY;
-            }
-        }
-        float targetPositionY = initiallPosition.y + deltaY;
-        return Mathf.Lerp(transform.position.y, targetPositionY, Time.deltaTime * jumpLerpSpeed);
-    }
-    private void StopJump() {
+    private void StopJump()
+    {
         IsJumping = false;
     }
 
-
-    private void StartRoll() {
-        rollStartZ = transform.position.z;
-        IsRolling = true;
-        regularCollider.enabled = false;
-        rollCollider.enabled = true;
-        StopJump();
+    private float ProcessJump()
+    {
+        float deltaY = 0;
+        if (IsJumping)
+        {
+            float jumpCurrentProgress = transform.position.z - jumpStartZ;
+            float jumpPercent = jumpCurrentProgress / jumpDistanceZ;
+            if (jumpPercent >= 1)
+            {
+                StopJump();
+            }
+            else
+            {
+                deltaY = Mathf.Sin(Mathf.PI * jumpPercent) * jumpHeightY;
+            }
+        }
+        float targetPositionY = initialPosition.y + deltaY;
+        return Mathf.Lerp(transform.position.y, targetPositionY, Time.deltaTime * jumpLerpSpeed);
     }
 
-    private void ProcessRoll() {
-        if (IsRolling) {
+    private void ProcessRoll()
+    {
+        if (IsRolling)
+        {
             float percent = (transform.position.z - rollStartZ) / rollDistanceZ;
-            if (percent >=1) {
+            if (percent >= 1)
+            {
                 StopRoll();
             }
         }
     }
 
-    private void StopRoll() {
+    private void StartRoll()
+    {
+        rollStartZ = transform.position.z;
+        IsRolling = true;
+        regularCollider.enabled = false;
+        rollCollider.enabled = true;
+
+        StopJump();
+    }
+
+    private void StopRoll()
+    {
         IsRolling = false;
         regularCollider.enabled = true;
         rollCollider.enabled = false;
     }
 
-    public void Die() {
+    public void Die()
+    {
         forwardSpeed = 0;
         StopRoll();
         StopJump();
