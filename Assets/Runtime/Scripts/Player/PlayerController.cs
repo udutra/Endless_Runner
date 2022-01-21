@@ -6,10 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     private Vector3 initialPosition;
     private float targetPositionX;
+    private float rollStartZ;
+    private float jumpStartZ;
+    
+    private float LeftLaneX => initialPosition.x - laneDistanceX;
+    private float RightLaneX => initialPosition.x + laneDistanceX;
+    private bool CanJump => !IsJumping;
+    private bool CanRoll => !IsRolling;
 
     [SerializeField] private float horizontalSpeed = 15;
     [SerializeField] private float forwardSpeed = 10;
-
     [SerializeField] private float laneDistanceX = 4;
 
     [Header("Jump")]
@@ -19,38 +25,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpLerpSpeed = 10;
 
     [Header("Roll")]
-
     [SerializeField] private float rollDistanceZ = 5;
     [SerializeField] private Collider regularCollider;
     [SerializeField] private Collider rollCollider;
-
-
 
     //TODO: Move to GameMode
     [Header("Score")]
     [SerializeField] private float baseScoreMultiplier = 1;
     private float score;
     public int Score => Mathf.RoundToInt(score);
-
-    
-
+    public float JumpDuration => jumpDistanceZ / forwardSpeed;
+    public float RollDuration => rollDistanceZ / forwardSpeed;
     public bool IsJumping { get; private set; }
-
-    private float rollStartZ;
     public bool IsRolling { get; private set; }
 
-    public float JumpDuration => jumpDistanceZ / forwardSpeed;
-
-    public float RollDuration => rollDistanceZ / forwardSpeed;
-    float jumpStartZ;
-
-    private float LeftLaneX => initialPosition.x - laneDistanceX;
-    private float RightLaneX => initialPosition.x + laneDistanceX;
-
-    private bool CanJump => !IsJumping;
-    private bool CanRoll => !IsRolling;
-
-    public float TravelledDistance => Vector3.Distance(transform.position, initialPosition);
+    public float TravelledDistance => transform.position.z - initialPosition.z;
 
     void Awake()
     {
@@ -73,8 +62,6 @@ public class PlayerController : MonoBehaviour
 
         //TODO: Move to GameMode
         score += baseScoreMultiplier * forwardSpeed * Time.deltaTime;
-        Debug.Log(Score);
-
     }
 
     private void ProcessInput()

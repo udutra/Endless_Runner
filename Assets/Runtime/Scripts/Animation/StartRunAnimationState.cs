@@ -8,6 +8,8 @@ public class StartRunAnimationState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //TODO: Remover isso, nao assumir que o player eh pai do animator
+        //TODO: Tirar controle de gameplay do  estado de animacao
+
         PlayerController player = animator.transform.parent.GetComponent<PlayerController>();
         if (player != null)
         {
