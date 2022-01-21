@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Vector3 initialPosition;
+    private float targetPositionX;
+
     [SerializeField] private float horizontalSpeed = 15;
     [SerializeField] private float forwardSpeed = 10;
 
@@ -22,9 +25,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Collider rollCollider;
 
 
-    Vector3 initialPosition;
 
-    float targetPositionX;
+    //TODO: Move to GameMode
+    [Header("Score")]
+    [SerializeField] private float baseScoreMultiplier = 1;
+    private float score;
+    public int Score => Mathf.RoundToInt(score);
+
+    
 
     public bool IsJumping { get; private set; }
 
@@ -62,6 +70,11 @@ public class PlayerController : MonoBehaviour
         ProcessRoll();
 
         transform.position = position;
+
+        //TODO: Move to GameMode
+        score += baseScoreMultiplier * forwardSpeed * Time.deltaTime;
+        Debug.Log(Score);
+
     }
 
     private void ProcessInput()
