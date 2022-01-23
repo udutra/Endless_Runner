@@ -14,14 +14,19 @@ public class PlayerController : MonoBehaviour
     private bool CanJump => !IsJumping;
     private bool CanRoll => !IsRolling;
 
+    [Header("Audio")]
+    [SerializeField] private PlayerAudioController audioController;
+
+    [Header("Speed")]
     [SerializeField] private float horizontalSpeed = 15;
     [SerializeField] private float forwardSpeed = 10;
+
+    [Header("Lane")]
     [SerializeField] private float laneDistanceX = 4;
 
     [Header("Jump")]
     [SerializeField] private float jumpDistanceZ = 5;
     [SerializeField] private float jumpHeightY = 2;
-
     [SerializeField] private float jumpLerpSpeed = 10;
 
     [Header("Roll")]
@@ -101,6 +106,7 @@ public class PlayerController : MonoBehaviour
         IsJumping = true;
         jumpStartZ = transform.position.z;
         StopRoll();
+        audioController.PlayJumpSound();
     }
 
     private void StopJump()
@@ -148,6 +154,7 @@ public class PlayerController : MonoBehaviour
         rollCollider.enabled = true;
 
         StopJump();
+        audioController.PlayRollSound();
     }
 
     private void StopRoll()

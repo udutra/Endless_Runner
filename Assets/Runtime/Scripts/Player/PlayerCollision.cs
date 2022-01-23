@@ -24,6 +24,7 @@ public class PlayerCollision : MonoBehaviour
             playerController.Die();
             animationController.Die();
             gameMode.OnGameOver();
+            obstacle.PlayCollisionFeedback(other);
         }
     }
 }

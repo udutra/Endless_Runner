@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 
 public class MainHUD : MonoBehaviour {
+
+    private MainHUDAudioController audioController;
     [SerializeField] private PlayerController player;
     [SerializeField] private GameMode gameMode;
 
@@ -20,6 +22,7 @@ public class MainHUD : MonoBehaviour {
 
     private void Awake() {
         ShowHudOverlay();
+        audioController = GetComponent<MainHUDAudioController>();
     }
 
     private void LateUpdate() {
@@ -73,14 +76,22 @@ public class MainHUD : MonoBehaviour {
         yield return null;
 
         countDownText.gameObject.SetActive(true);
+        int previousRemainingTimeInt = countdownSeconds;
         while (Time.time <= timeToStart) {
             float remainingTime = timeToStart - Time.time;
             int remainingTimeInt = Mathf.FloorToInt(remainingTime);
-            countDownText.text = (remainingTimeInt +1 ).ToString();
+            countDownText.text = (remainingTimeInt + 1).ToString();
+
+            if (previousRemainingTimeInt != remainingTimeInt) {
+                audioController.PlayCountdownAudio();
+            }
+            previousRemainingTimeInt = remainingTimeInt;
+
             float percent = remainingTime - remainingTimeInt;
             countDownText.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, percent);
             yield return null;
         }
+        audioController.PlayCountdownFinishhedAudio();
         countDownText.gameObject.SetActive(false);
     }
 }
