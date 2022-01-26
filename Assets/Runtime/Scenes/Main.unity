@@ -2574,8 +2574,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1611310417}
     - target: {fileID: 5473261710550771336, guid: 13e6af26070c6914283530aa501293e8, type: 3}
-      propertyPath: startGameCountdown
-      value: 5
+      propertyPath: baseScoreMultiplier
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5473261710550771336, guid: 13e6af26070c6914283530aa501293e8, type: 3}
       propertyPath: playerAnimationController
@@ -2591,15 +2591,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5473261710550771339, guid: 13e6af26070c6914283530aa501293e8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5714881
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5473261710550771339, guid: 13e6af26070c6914283530aa501293e8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.36244497
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5473261710550771339, guid: 13e6af26070c6914283530aa501293e8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.750154
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5473261710550771339, guid: 13e6af26070c6914283530aa501293e8, type: 3}
       propertyPath: m_LocalRotation.w

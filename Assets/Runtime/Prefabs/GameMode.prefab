@@ -45,7 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c86df3b9291c274ca4647c769962708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerAnimationController: {fileID: 0}
+  mainHud: {fileID: 0}
+  musicPlayer: {fileID: 0}
+  startPlayerSpeed: 10
+  maxPlayerSpeed: 17
+  timeTomaxSpeedSeconds: 300
   reloadGameDelay: 3
+  startGameCountdown: 5
+  baseScoreMultiplier: 0
 --- !u!114 &1282621936426031855
 MonoBehaviour:
   m_ObjectHideFlags: 0
