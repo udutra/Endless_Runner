@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Speed")]
     [SerializeField] private float horizontalSpeed = 15;
-    [SerializeField] private float forwardSpeed = 10;
+    //[SerializeField] private float forwardSpeed = 10;
 
     [Header("Lane")]
     [SerializeField] private float laneDistanceX = 4;
@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour {
     private bool CanJump => !IsJumping;
     private bool CanRoll => !IsRolling;
 
-    public float JumpDuration => jumpDistanceZ / forwardSpeed;
-    public float RollDuration => rollDistanceZ / forwardSpeed;
+    public float JumpDuration => jumpDistanceZ / ForwardSpeed;
+    public float RollDuration => rollDistanceZ / ForwardSpeed;
     public float TravelledDistance => transform.position.z - initialPosition.z;
     public float ForwardSpeed { get; set; } = 10;
     public bool IsJumping { get; private set; }

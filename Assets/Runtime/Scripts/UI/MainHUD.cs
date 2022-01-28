@@ -19,6 +19,7 @@ public class MainHUD : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI distanceText;
     [SerializeField] private TextMeshProUGUI countDownText;
+    [SerializeField] private TextMeshProUGUI cherryCountText;
 
     private void Awake() {
         ShowHudOverlay();
@@ -27,7 +28,8 @@ public class MainHUD : MonoBehaviour {
 
     private void LateUpdate() {
         scoreText.text = $"Score: { gameMode.Score}";
-        distanceText.text = $"{ Mathf.RoundToInt(player.TravelledDistance)}m";
+        distanceText.text = $"{ Mathf.RoundToInt(player.TravelledDistance)} m";
+        cherryCountText.text = $"{ gameMode.CherriesPicked}";
     }
 
     public void PauseGame() { 

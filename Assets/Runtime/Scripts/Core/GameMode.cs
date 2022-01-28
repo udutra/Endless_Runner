@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameMode : MonoBehaviour {
 
-    private float startGameTime;
-    [SerializeField] private bool isGameRunning = false;
+    private float score, startGameTime;
+    private bool isGameRunning = false;
 
     [Header("Player")]
     [SerializeField] private PlayerController player;
@@ -23,10 +23,11 @@ public class GameMode : MonoBehaviour {
     [SerializeField] private float reloadGameDelay = 3;
     [SerializeField, Range(0, 5)] private int startGameCountdown = 5;
 
-    [Header("Socre")]
+    [Header("Score")]
     [SerializeField] private int baseScoreMultiplier = 1;
-    [SerializeField] private float score;
+    
     public int Score => Mathf.RoundToInt(score);
+    public int CherriesPicked { get; private set; }
 
     private void Awake() {
         SetWaitForStartGameState();
@@ -34,11 +35,9 @@ public class GameMode : MonoBehaviour {
 
     private void Update() {
         if (isGameRunning) {
-            
             float timePercent = (Time.time - startGameTime) / timeToMaxSpeedSeconds;
             player.ForwardSpeed = Mathf.Lerp(startPlayerSpeed, maxPlayerSpeed, timePercent);
             float extraScoreMultiplier = 1 + timePercent;
-            Debug.Log("update");
             score += baseScoreMultiplier * extraScoreMultiplier * player.ForwardSpeed * Time.deltaTime;
         }
     }
@@ -69,7 +68,6 @@ public class GameMode : MonoBehaviour {
     }
 
     private IEnumerator StartGameCor() {
-        Debug.Log("Entrou");
         musicPlayer.PlayMainTrackMusic();
         yield return StartCoroutine(mainHud.PlayStartGameCountdown(startGameCountdown));
         yield return StartCoroutine(playerAnimationController.PlayStartGameAnimation());
@@ -85,5 +83,9 @@ public class GameMode : MonoBehaviour {
         isGameRunning = false;
         mainHud.ShowStartGameOverlay();
         musicPlayer.PlayStartMenuMusic();
+    }
+
+    public void OnCherryPickedUp() {
+        CherriesPicked++;
     }
 }
