@@ -61,3 +61,14 @@ Update Mode: updateDependencies
 
 The following packages were updated:
   com.unity.ide.rider from version 3.0.7 to 3.0.9
+
+=== Tue Mar  1 19:52:41 2022
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.collab-proxy from version 1.15.9 to 1.15.12
+  com.unity.ide.rider from version 3.0.10 to 3.0.12
+  com.unity.ide.vscode from version 1.2.4 to 1.2.5
+  com.unity.timeline from version 1.6.3 to 1.6.4
